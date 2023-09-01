@@ -1,231 +1,602 @@
 <x-app-layout>
-    <x-navbar-menu></x-navbar-menu>
-    
-    <div class="container-fluid">
-      <div class="row">
-        <x-sidebar-menu></x-sidebar-menu>
 
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h3 class="h3">Datos Personales</h3>
-           
-          </div>
+    <body>
+        <div class="wrapper">
+            <nav id="sidebar" class="sidebar js-sidebar">
+                <div class="sidebar-content js-simplebar">
+                    <a class="sidebar-brand" href="index.html">
+                        <span class="align-middle">Dashboard</span>
+                    </a>
 
-          <!-- Validation Errors -->
-          <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                    <ul class="sidebar-nav">
+                        <li class="sidebar-header">
+                            Menú
+                        </li>
 
-          <div class="container text-center">
-            <div class="row mb-3">
-              <div class="col-md-3">
-                <div class="card">
-                  <div class="card-header fw-bold">
-                    Datos de la cuenta 
-                  </div>
-                  <div class="card-body">
-                    <img src="{{ asset('assets/img/no-user-image.gif') }}" alt="" class="img-fluid rounded-circle" style="max-height: 70px">
-                    <h5 id="nickname" class="card-title">{{ Str::title(Auth::user()->nickname) }}</h5>
-                    <p class="card-text mb-0">Estado: {{ Auth::user()->EstadoPago }}</p>
-                    <p class="card-text mb-0">Cantidad Invitados: {{ Auth::user()->CantidadInvitadosPagados->count() }}</p>
-                    <p class="card-text mb-0">Inversión total de Invitados: $ {{ Auth::user()->CantidadInvesionPagada }}</p>
-                    <p class="card-text mb-0">Comisión 20% ganada: $ {{ Auth::user()->ComisionGanada }}</p>
-                    
-                    <button type="button" id="copybutton" onclick="copyText()" class="btn btn-sm btn-success" title="Copiar"><span data-feather="copy"></span>Copiar mi enlace de invitación</button>
-                    
-                  </div>
+                        <li class="sidebar-item active">
+                            <a class="sidebar-link" href="index.html">
+                                <i class="align-middle" data-feather="sliders"></i> <span
+                                    class="align-middle">Dashboard</span>
+                            </a>
+                        </li>
+
+                        {{-- <li class="sidebar-item">
+                            <a class="sidebar-link" href="pages-profile.html">
+                                <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                            </a>
+                        </li> --}}
+
+                    </ul>
                 </div>
-              </div>
+            </nav>
 
-              <div class="col-md-4">
-                <div class="card mb-2">
-                  <div class="card-header fw-bold">
-                    Comisión Ganada
-                  </div>
-                  <div class="card-body">
-                    <p class="card-text h3 text-success">$ {{ Auth::user()->ComisionGanada }} USDT</p>
-                    
-                  </div>
-                </div>
+            <div class="main">
+                <nav class="navbar navbar-expand navbar-light navbar-bg">
+                    <a class="sidebar-toggle js-sidebar-toggle">
+                        <i class="hamburger align-self-center"></i>
+                    </a>
 
-                <div class="card">
-                  <div class="card-header fw-bold">
-                    Comprobante
-                  </div>
-                  <div class="card-body">
-                     
-                      @if(auth()->user()->imagen_recibo)
-                        <a class="btn btn-success btn-sm" href="{{ asset('/storage/recibos/'.auth()->user()->imagen_recibo) }}" download target="_blank">
-                        <span data-feather="download"></span> Descargar</a>   
-                      @else 
-                        <span>Sin Comprobante, carge el comprobante aqui</span>
-                      @endif
-                  </div>
-                   @if(!auth()->user()->imagen_recibo)
-                    <div class="card-footer">
-                      <form method="POST" enctype="multipart/form-data" action="{{ route('uploadFile') }}">
-                        @csrf
-                        <input class="form-control form-control-sm" id="imagen_recibo" name="imagen_recibo" type="file" accept="image/*">
-                        <button class="btn-block btn btn-sm btn-primary w-100" type="submit">Subir comprobante</button>
-                      </form>
+                    <div class="navbar-collapse collapse">
+                        <ul class="navbar-nav navbar-align">
+                            <li class="nav-item dropdown">
+                                <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown"
+                                    data-bs-toggle="dropdown">
+                                    <div class="position-relative">
+                                        <i class="align-middle" data-feather="bell"></i>
+                                        <span class="indicator">4</span>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
+                                    aria-labelledby="alertsDropdown">
+                                    <div class="dropdown-menu-header">
+                                        4 New Notifications
+                                    </div>
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-2">
+                                                    <i class="text-danger" data-feather="alert-circle"></i>
+                                                </div>
+                                                <div class="col-10">
+                                                    <div class="text-dark">Update completed</div>
+                                                    <div class="text-muted small mt-1">Restart server 12 to complete the
+                                                        update.</div>
+                                                    <div class="text-muted small mt-1">30m ago</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-2">
+                                                    <i class="text-warning" data-feather="bell"></i>
+                                                </div>
+                                                <div class="col-10">
+                                                    <div class="text-dark">Lorem ipsum</div>
+                                                    <div class="text-muted small mt-1">Aliquam ex eros, imperdiet
+                                                        vulputate hendrerit et.</div>
+                                                    <div class="text-muted small mt-1">2h ago</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-2">
+                                                    <i class="text-primary" data-feather="home"></i>
+                                                </div>
+                                                <div class="col-10">
+                                                    <div class="text-dark">Login from 192.186.1.8</div>
+                                                    <div class="text-muted small mt-1">5h ago</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-2">
+                                                    <i class="text-success" data-feather="user-plus"></i>
+                                                </div>
+                                                <div class="col-10">
+                                                    <div class="text-dark">New connection</div>
+                                                    <div class="text-muted small mt-1">Christina accepted your request.
+                                                    </div>
+                                                    <div class="text-muted small mt-1">14h ago</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="dropdown-menu-footer">
+                                        <a href="#" class="text-muted">Show all notifications</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown"
+                                    data-bs-toggle="dropdown">
+                                    <div class="position-relative">
+                                        <i class="align-middle" data-feather="message-square"></i>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
+                                    aria-labelledby="messagesDropdown">
+                                    <div class="dropdown-menu-header">
+                                        <div class="position-relative">
+                                            4 New Messages
+                                        </div>
+                                    </div>
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-2">
+                                                    <img src="img/avatars/avatar-5.jpg"
+                                                        class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
+                                                </div>
+                                                <div class="col-10 ps-2">
+                                                    <div class="text-dark">Vanessa Tucker</div>
+                                                    <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis
+                                                        arcu tortor.</div>
+                                                    <div class="text-muted small mt-1">15m ago</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-2">
+                                                    <img src="img/avatars/avatar-2.jpg"
+                                                        class="avatar img-fluid rounded-circle" alt="William Harris">
+                                                </div>
+                                                <div class="col-10 ps-2">
+                                                    <div class="text-dark">William Harris</div>
+                                                    <div class="text-muted small mt-1">Curabitur ligula sapien euismod
+                                                        vitae.</div>
+                                                    <div class="text-muted small mt-1">2h ago</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-2">
+                                                    <img src="img/avatars/avatar-4.jpg"
+                                                        class="avatar img-fluid rounded-circle" alt="Christina Mason">
+                                                </div>
+                                                <div class="col-10 ps-2">
+                                                    <div class="text-dark">Christina Mason</div>
+                                                    <div class="text-muted small mt-1">Pellentesque auctor neque nec
+                                                        urna.</div>
+                                                    <div class="text-muted small mt-1">4h ago</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-2">
+                                                    <img src="img/avatars/avatar-3.jpg"
+                                                        class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
+                                                </div>
+                                                <div class="col-10 ps-2">
+                                                    <div class="text-dark">Sharon Lessman</div>
+                                                    <div class="text-muted small mt-1">Aenean tellus metus, bibendum
+                                                        sed, posuere ac, mattis non.</div>
+                                                    <div class="text-muted small mt-1">5h ago</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="dropdown-menu-footer">
+                                        <a href="#" class="text-muted">Show all messages</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#"
+                                    data-bs-toggle="dropdown">
+                                    <i class="align-middle" data-feather="settings"></i>
+                                </a>
+
+                                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+                                    data-bs-toggle="dropdown">
+                                    <img src="{{ asset('assets_admin/img/avatars/avatar.jpg') }}"
+                                        class="avatar img-fluid rounded me-1" alt="Usuario" /> <span
+                                        class="text-dark">{{ Str::title(Auth::user()->name) }}</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
+                                            data-feather="user"></i> Profile</a>
+                                    <a class="dropdown-item" href="#"><i class="align-middle me-1"
+                                            data-feather="pie-chart"></i> Analytics</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="index.html"><i class="align-middle me-1"
+                                            data-feather="settings"></i> Settings & Privacy</a>
+                                    <a class="dropdown-item" href="#"><i class="align-middle me-1"
+                                            data-feather="help-circle"></i> Help Center</a>
+                                    <div class="dropdown-divider"></div>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a class="dropdown-item" href="#"
+                                            onclick="event.preventDefault();
+                                                            this.closest('form').submit();">
+                                            <i class="align-middle me-1" data-feather="log-out"></i>
+                                            {{ __('Cerrar Sesión') }}
+                                        </a>
+                                    </form>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                   @endif
-                </div>
-              </div>
+                </nav>
 
-              <div class="col-md-5">
-                <div class="card mb-2">
-                  <div class="card-header fw-bold">
-                    Wallet USDT
-                  </div>
-                  <div class="card-body">
-                      <form method="POST" action="{{ route('uploadWalletUSDT') }}">
-                          @csrf
-                        <div class="input-group mb-3">
-                          <input type="text" name="wallet_usdt" value="{{ Auth::user()->wallet_usdt_tr20 }}" class="form-control" placeholder="Sin wallet - indica aqui tu wallet USDT">
-                          <button class="btn btn-sm btn-primary">Actualizar</button>
+                <main class="content">
+                    <div class="container-fluid p-0">
+
+                        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                            <h1 class="h3 mb-3"><strong>Mi</strong> Dashboard</h1>
+                            <div class="btn-toolbar mb-2 mb-md-0">
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <span data-feather="file"></span>
+                                    Nuevo Crédito
+                                </button>
+                            </div>
                         </div>
-                      </form>
-                  </div>
-                </div>
 
-                <div class="card mb-2">
-                  <div class="card-header fw-bold">
-                    Wallet ALARAB
-                  </div>
-                <div class="card-body">
-                  <form method="POST" action="{{ route('uploadWalletALARAB') }}">
-                    @csrf
-                    <div class="input-group mb-3">
-                      <input type="text" name="wallet_alarab" value="{{ Auth::user()->wallet_alarab }}" class="form-control" placeholder="Sin wallet - indica aqui tu wallet ALARAB">
-                      <button class="btn btn-sm btn-primary">Actualizar</button>
+
+
+
+
+                        <div class="row">
+                            <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+                                <div class="card flex-fill">
+                                    <div class="card-header">
+
+                                        <h5 class="card-title mb-0">Latest Projects</h5>
+                                    </div>
+                                    <table class="table table-hover my-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th class="d-none d-xl-table-cell">Start Date</th>
+                                                <th class="d-none d-xl-table-cell">End Date</th>
+                                                <th>Status</th>
+                                                <th class="d-none d-md-table-cell">Assignee</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Project Apollo</td>
+                                                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                                                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                                                <td><span class="badge bg-success">Done</span></td>
+                                                <td class="d-none d-md-table-cell">Vanessa Tucker</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project Fireball</td>
+                                                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                                                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                                                <td><span class="badge bg-danger">Cancelled</span></td>
+                                                <td class="d-none d-md-table-cell">William Harris</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project Hades</td>
+                                                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                                                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                                                <td><span class="badge bg-success">Done</span></td>
+                                                <td class="d-none d-md-table-cell">Sharon Lessman</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project Nitro</td>
+                                                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                                                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                                                <td><span class="badge bg-warning">In progress</span></td>
+                                                <td class="d-none d-md-table-cell">Vanessa Tucker</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project Phoenix</td>
+                                                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                                                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                                                <td><span class="badge bg-success">Done</span></td>
+                                                <td class="d-none d-md-table-cell">William Harris</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project X</td>
+                                                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                                                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                                                <td><span class="badge bg-success">Done</span></td>
+                                                <td class="d-none d-md-table-cell">Sharon Lessman</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project Romeo</td>
+                                                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                                                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                                                <td><span class="badge bg-success">Done</span></td>
+                                                <td class="d-none d-md-table-cell">Christina Mason</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project Wombat</td>
+                                                <td class="d-none d-xl-table-cell">01/01/2023</td>
+                                                <td class="d-none d-xl-table-cell">31/06/2023</td>
+                                                <td><span class="badge bg-warning">In progress</span></td>
+                                                <td class="d-none d-md-table-cell">William Harris</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4 col-xxl-3 d-flex">
+                                <div class="card flex-fill w-100">
+                                    <div class="card-header">
+
+                                        <h5 class="card-title mb-0">Monthly Sales</h5>
+                                    </div>
+                                    <div class="card-body d-flex w-100">
+                                        <div class="align-self-center chart chart-lg">
+                                            <canvas id="chartjs-dashboard-bar"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                  </form>
-                </div>
-              </div>
+                </main>
 
-               
-              </div>
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row text-muted">
+                            <div class="col-6 text-start">
+                                <p class="mb-0">
+                                    <a class="text-muted" href="#"
+                                        target="_blank"><strong>Dashboard</strong></a> - <a class="text-muted"
+                                        href="#" target="_blank"><strong>Bootstrap Admin Template</strong></a>
+                                    &copy;
+                                </p>
+                            </div>
+                            <div class="col-6 text-end">
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a class="text-muted" href="#" target="_blank">Support</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="text-muted" href="#" target="_blank">Help Center</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="text-muted" href="#" target="_blank">Privacy</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="text-muted" href="#" target="_blank">Terms</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
+        </div>
 
-            @if(auth()->user()->CantidadInvitadosPagados->count() >= 2)
-            <div class="row">
-              <div class="col-md-3">
-               <div class="card">
-                  <div class="card-header fw-bold">
-                    Pagos
-                  </div>
-                  <div class="card-body">
-                    <img src="{{ asset('assets/img/pago.png') }}" alt="" class="img-fluid rounded-circle" style="max-height: 100px">
-                   
-                    <p class="card-text mb-0">Paga tu paquete con tu USTD atravez de la red TRC20</p>
-                   
-                    <span class="text-center fw-bold">Wallet</span>
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="form-control"  value="TQu8XqRU8H7EfT1q31yLzG5nRAcgc4fwkc" style="font-size: 12px;" readonly>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card">
-                  <div class="card-header fw-bold">
-                    Equipo 1 - {{ Auth::user()->ListaEquipoA->count() }} invitados
-                    <p class="mb-0 text-success">Total Invertido: ${{ Auth::user()->ListaEquipoA->sum('usdt') }}</p>
-                  </div>
-                  <div class="card-body">
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseEQ1" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      Ver detalle
-                    </a>
-                    <div class="collapse" id="collapseEQ1">
-                      <table class="table table-striped table-sm table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Nickname</th>
-                            <th scope="col">Inversión</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach (Auth::user()->ListaEquipoA as $user)
-                          <tr>
-                            <td>{{ $user->nickname }}</td>
-                            <td>$ {{ $user->usdt }}</td>
-                          </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <script src="{{ asset('assets_admin/js/app.js') }}"></script>
 
-              <div class="col">
-                <div class="card">
-                  <div class="card-header fw-bold">
-                     Equipo 2 - {{ Auth::user()->ListaEquipoB->count() }} invitados
-                     <p class="mb-0 text-success">Total Invertido: ${{ Auth::user()->ListaEquipoB->sum('usdt') }}</p>
-                  </div>
-                  <div class="card-body">
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseEQ2" role="button" aria-expanded="false" aria-controls="collapseExample">
-                      Ver detalle
-                    </a>
-                    <div class="collapse" id="collapseEQ2">
-                      <table class="table table-striped table-sm table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Nickname</th>
-                            <th scope="col">Inversión</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach (Auth::user()->ListaEquipoB as $user)
-                          <tr>
-                            <td>{{ $user->nickname }}</td>
-                            <td>$ {{ $user->usdt }}</td>
-                          </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            @else
-            <div class="row">
-              <div class="col-md-3">
-               <div class="card">
-                  <div class="card-header fw-bold">
-                    Pagos
-                  </div>
-                  <div class="card-body">
-                    <img src="{{ asset('assets/img/pago.png') }}" alt="" class="img-fluid rounded-circle" style="max-height: 100px">
-                   
-                    <p class="card-text mb-0">Paga tu paquete con tu USTD atravez de la red TRC20</p>
-                   
-                    <span class="text-center fw-bold">Wallet</span>
-                    <div class="input-group input-group-sm">
-                      <input type="text" class="form-control"  value="TQu8XqRU8H7EfT1q31yLzG5nRAcgc4fwkc" style="font-size: 12px;" readonly>
-                    </div>
-                    
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="alert alert-success" role="alert">
-                  <h4 class="alert-heading">Sin equipo completo!</h4>
-                  <p>Tus equipos se mostrarán cuando tengas almenos 2 invitados activos y además hayas realizado el pago de tu paquete .</p>
-                  <hr>
-                  <p class="mb-0">Recuerda que las personas que se registren deben indicar tu Nickname y además realizar el pago del paquete.</p>
-                </div>
-              </div>
-            </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+                var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+                gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+                gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+                // Line chart
+                new Chart(document.getElementById("chartjs-dashboard-line"), {
+                    type: "line",
+                    data: {
+                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                            "Dec"
+                        ],
+                        datasets: [{
+                            label: "Sales ($)",
+                            fill: true,
+                            backgroundColor: gradient,
+                            borderColor: window.theme.primary,
+                            data: [
+                                2115,
+                                1562,
+                                1584,
+                                1892,
+                                1587,
+                                1923,
+                                2566,
+                                2448,
+                                2805,
+                                3438,
+                                2917,
+                                3327
+                            ]
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            intersect: false
+                        },
+                        hover: {
+                            intersect: true
+                        },
+                        plugins: {
+                            filler: {
+                                propagate: false
+                            }
+                        },
+                        scales: {
+                            xAxes: [{
+                                reverse: true,
+                                gridLines: {
+                                    color: "rgba(0,0,0,0.0)"
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    stepSize: 1000
+                                },
+                                display: true,
+                                borderDash: [3, 3],
+                                gridLines: {
+                                    color: "rgba(0,0,0,0.0)"
+                                }
+                            }]
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Pie chart
+                new Chart(document.getElementById("chartjs-dashboard-pie"), {
+                    type: "pie",
+                    data: {
+                        labels: ["Chrome", "Firefox", "IE"],
+                        datasets: [{
+                            data: [4306, 3801, 1689],
+                            backgroundColor: [
+                                window.theme.primary,
+                                window.theme.warning,
+                                window.theme.danger
+                            ],
+                            borderWidth: 5
+                        }]
+                    },
+                    options: {
+                        responsive: !window.MSInputMethodContext,
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: false
+                        },
+                        cutoutPercentage: 75
+                    }
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Bar chart
+                new Chart(document.getElementById("chartjs-dashboard-bar"), {
+                    type: "bar",
+                    data: {
+                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
+                            "Dec"
+                        ],
+                        datasets: [{
+                            label: "This year",
+                            backgroundColor: window.theme.primary,
+                            borderColor: window.theme.primary,
+                            hoverBackgroundColor: window.theme.primary,
+                            hoverBorderColor: window.theme.primary,
+                            data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+                            barPercentage: .75,
+                            categoryPercentage: .5
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [{
+                                gridLines: {
+                                    display: false
+                                },
+                                stacked: false,
+                                ticks: {
+                                    stepSize: 20
+                                }
+                            }],
+                            xAxes: [{
+                                stacked: false,
+                                gridLines: {
+                                    color: "transparent"
+                                }
+                            }]
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var markers = [{
+                        coords: [31.230391, 121.473701],
+                        name: "Shanghai"
+                    },
+                    {
+                        coords: [28.704060, 77.102493],
+                        name: "Delhi"
+                    },
+                    {
+                        coords: [6.524379, 3.379206],
+                        name: "Lagos"
+                    },
+                    {
+                        coords: [35.689487, 139.691711],
+                        name: "Tokyo"
+                    },
+                    {
+                        coords: [23.129110, 113.264381],
+                        name: "Guangzhou"
+                    },
+                    {
+                        coords: [40.7127837, -74.0059413],
+                        name: "New York"
+                    },
+                    {
+                        coords: [34.052235, -118.243683],
+                        name: "Los Angeles"
+                    },
+                    {
+                        coords: [41.878113, -87.629799],
+                        name: "Chicago"
+                    },
+                    {
+                        coords: [51.507351, -0.127758],
+                        name: "London"
+                    },
+                    {
+                        coords: [40.416775, -3.703790],
+                        name: "Madrid "
+                    }
+                ];
+                var map = new jsVectorMap({
+                    map: "world",
+                    selector: "#world_map",
+                    zoomButtons: true,
+                    markers: markers,
+                    markerStyle: {
+                        initial: {
+                            r: 9,
+                            strokeWidth: 7,
+                            stokeOpacity: .4,
+                            fill: window.theme.primary
+                        },
+                        hover: {
+                            fill: window.theme.primary,
+                            stroke: window.theme.primary
+                        }
+                    },
+                    zoomOnScroll: false
+                });
+                window.addEventListener("resize", () => {
+                    map.updateSize();
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
+                var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
+                document.getElementById("datetimepicker-dashboard").flatpickr({
+                    inline: true,
+                    prevArrow: "<span title=\"Previous month\">&laquo;</span>",
+                    nextArrow: "<span title=\"Next month\">&raquo;</span>",
+                    defaultDate: defaultDate
+                });
+            });
+        </script>
 
-
-            @endif
-          </div>
-
-          
-        </main>
-      </div>
-    </div>
+    </body>
 </x-app-layout>

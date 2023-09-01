@@ -1,8 +1,8 @@
 <x-guest-layout>
-  
+
     <div class="container">
         <div class="row">
-            <main class="form-signin">        
+            <main class="form-signin">
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
                 {{--  <img class="mb-0" src="{{ asset('assets/img/logo.png') }}" alt="" width="160" height="200"> --}}
@@ -13,10 +13,17 @@
 
                     <!-- Name -->
                     <div class="form-floating mb-3">
-                        <input type="nickname" name="nickname" value="{{old('nickname')}}" class="form-control" id="nickname" required autofocus>
-                        <label for="nickname">Nickname</label>
+                        <input type="name" name="name" value="{{old('name')}}" class="form-control" id="name" required autofocus>
+                        <label for="name">Nombres</label>
                     </div>
-                   
+
+                    <!-- DNI -->
+                    <div class="form-floating mb-3">
+                        <input type="dni" name="dni" value="{{old('dni')}}" class="form-control" id="dni" required>
+                        <label for="dni">Documento de Identidad</label>
+                    </div>
+
+
                     <!-- Email -->
                     <div class="form-floating mb-3">
                         <input type="email" name="email" value="{{old('email')}}" class="form-control" id="email" required>
@@ -47,7 +54,7 @@
                     </div>
 
                 </form>
-            
+
             </main>
 
         </div>

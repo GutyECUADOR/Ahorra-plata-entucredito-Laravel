@@ -52,25 +52,20 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $custom_messages = [
-            'nickname_promoter.exists' => 'El nick del promotor no existe, indique un nick correcto.'
-        ];
-        
+
         $request->validate([
-            'nickname' => ['required', 'string', 'max:191', 'unique:users'],
-            'nickname_promoter' => ['exists:users,nickname', 'string', 'max:191'],
+            'name' => ['required', 'string', 'max:191'],
+            'dni' => ['required', 'string', 'max:191', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
             'phone' => ['required', 'string', 'max:15'],
-            'package' => ['required', 'string', 'max:15', 'exists:packages,id'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ], $custom_messages);
+        ]);
 
         $user = User::create([
-            'nickname' => $request->nickname,
-            'nickname_promoter' => $request->nickname_promoter,
+            'name' => $request->name,
+            'dni' => $request->dni,
             'email' => $request->email,
             'phone' => $request->phone,
-            'package_id' => $request->package,
             'password' => Hash::make($request->password),
         ]);
 
@@ -106,13 +101,13 @@ class RegisteredUserController extends Controller
         if ($user->location) {
             return redirect()->back()->withErrors(['El usuario: '.$user->nickname.' ya tiene registrado una ubicacion, no se puede asignar una nueva ubicación.']);
         }
-     
+
         /* Obtnemos la ubicacion (id) del arbol de su patrocinador */
         $resulset = DB::select('
-            SELECT location FROM users WHERE nickname = (SELECT nickname_promoter FROM users WHERE nickname = :nickname)', 
+            SELECT location FROM users WHERE nickname = (SELECT nickname_promoter FROM users WHERE nickname = :nickname)',
             array('nickname' => $user->nickname));
-            
-           
+
+
         if (!$resulset) {
             return redirect()->back()->withErrors(['El usuario: '.$user->nickname.' no tiene un nickname de promotor, no se puede asignar ubicación.']);
         }
@@ -124,42 +119,42 @@ class RegisteredUserController extends Controller
         //Empieza en 2 nodos sube hasta 64 en nivel 7
 
         /* EQUIPO 1 */
-        $nodos = 2; 
+        $nodos = 2;
         $cantidad_EQ1 = 0;
         $array_rango_EQ1 = [];
-        for ($nivel=1; $nivel < 7; $nivel++) { 
+        for ($nivel=1; $nivel < 7; $nivel++) {
             $primero = $nodos * $cabezaArbol; // Formula n*a
             $ultimo =  $cabezaArbol * $nodos + $nodos / 2 - 1; // Formula a*n+n/2-1
             $nodos = $nodos*2;
-           
+
             $current_rango = range($primero,$ultimo);
             $array_rango_EQ1 = array_merge($array_rango_EQ1, $current_rango);
-            
+
         }
-        
+
         //Consultamos si hay una ubicacion con ese rango
         $cantidad_EQ1 = DB::table('users')->select('location')->whereIn('location', $array_rango_EQ1)->count();
-      
+
         $ubicacion_libre_EQ1 = null;
         foreach ($array_rango_EQ1 as $index) {
             $ubicacion = DB::table('users')->select('location')->where('location', $index)->first();
-            
+
             if ($ubicacion == NULL) {
                 $ubicacion_libre_EQ1 = $index;
                 break;
 
             }
         }
-                        
+
         /* EQUIPO 2 */
         $nodos = 2;
         $cantidad_EQ2 = 0;
         $array_rango_EQ2 = [];
-        for ($nivel=1; $nivel < 7; $nivel++) { 
+        for ($nivel=1; $nivel < 7; $nivel++) {
             $primero =  $cabezaArbol * $nodos + $nodos / 2 ; // a*n+n/2
             $ultimo =  $cabezaArbol * $nodos + $nodos - 1 ; // a*n+n-1
             $nodos = $nodos*2;
-            
+
             $current_rango = range($primero,$ultimo);
             $array_rango_EQ2 = array_merge($array_rango_EQ2, $current_rango);
 
@@ -168,11 +163,11 @@ class RegisteredUserController extends Controller
 
         //Consultamos si hay una ubicacion con ese rango
         $cantidad_EQ2 = DB::table('users')->select('location')->whereIn('location', $array_rango_EQ2)->count();
-    
+
         $ubicacion_libre_EQ2 = null;
         foreach ($array_rango_EQ2 as $index) {
             $ubicacion = DB::table('users')->select('location')->where('location', $index)->first();
-            
+
             if ($ubicacion == NULL) {
                 $ubicacion_libre_EQ2 = $index;
                 break;
@@ -181,7 +176,7 @@ class RegisteredUserController extends Controller
         }
         echo 'Cantidad1:'.$cantidad_EQ1. '</br>';
         echo 'Cantidad2:'.$cantidad_EQ2. '</br>';
-                 
+
         echo 'Libre1:'.$ubicacion_libre_EQ1. '</br>';
         echo 'Libre2:'.$ubicacion_libre_EQ2. '</br>';
 
@@ -198,16 +193,16 @@ class RegisteredUserController extends Controller
             $user_DB->location = $ubicacion_libre_EQ1;
             $user_DB->save();
             return redirect()->back()->with('status', 'Registrado en ubicación.'. $ubicacion_libre_EQ1);
-           
+
         }else{
             $user_DB = User::findOrFail($user->id);
             $user_DB->is_payed = 1;
             $user_DB->location = $ubicacion_libre_EQ2;
             $user_DB->save();
             return redirect()->back()->with('status', 'Registrado en ubicación.'. $ubicacion_libre_EQ2);
-           
+
         }
 
-        
+
     }
 }

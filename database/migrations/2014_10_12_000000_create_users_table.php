@@ -15,22 +15,15 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('location')->nullable()->unique();
-            $table->string('nickname')->unique();
-            $table->string('nickname_promoter');
+            $table->string('name')->unique();
+            $table->string('dni')->unique();
             $table->string('email')->unique();
+            $table->string('phone');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->string('role')->default('USER_ROLE');
-            $table->string('phone');
             $table->string('avatar')->default('default.png');
-            $table->string('wallet_usdt_tr20')->nullable();;
-            $table->string('wallet_alarab')->nullable();;
-            $table->unsignedBigInteger('package_id')->default(1);
-            $table->foreign('package_id')->references('id')->on('packages');
-            $table->boolean('is_payed')->default(false);
-            $table->string('imagen_recibo')->nullable();
             $table->timestamps();
         });
     }
