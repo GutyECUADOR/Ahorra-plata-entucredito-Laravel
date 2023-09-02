@@ -99,7 +99,8 @@
                                                 <th class="d-none d-xl-table-cell">Monto del Crédito </th>
                                                 <th class="d-none d-xl-table-cell">Cuotas</th>
                                                 <th class="d-none d-md-table-cell">Interes</th>
-                                                 <th class="d-none d-md-table-cell">Fecha</th>
+                                                <th class="d-none d-md-table-cell">Fecha</th>
+                                                 <th class="d-none d-md-table-cell">Análisis</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -108,8 +109,14 @@
                                                 <td>{{ $credito->nombre }}</td>
                                                 <td>{{ $credito->cantidad }}</td>
                                                 <td>{{ $credito->cuotas }}</td>
-                                                 <td>{{ $credito->interes }}</td>
+                                                <td>{{ $credito->interes }}</td>
                                                 <td>{{ $credito->created_at }}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearCreditoModal">
+                                                        <span data-feather="bar-chart-2"></span>
+                                                        Análisis
+                                                    </button>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>

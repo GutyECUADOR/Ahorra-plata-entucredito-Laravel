@@ -16,7 +16,7 @@ class CreateCreditosTable extends Migration
         Schema::create('creditos', function (Blueprint $table) {
             $table->id();
             $table->text('nombre')->nullable();
-            $table->decimal('cantidad', 9,2);
+            $table->bigInteger('cantidad');
             $table->integer('cuotas');
             $table->decimal('interes',4,2);
             $table->unsignedBigInteger('user_id');

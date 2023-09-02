@@ -12,7 +12,7 @@
   <!-- Favicons -->
   <link href="{{ asset('img/favicon.ico') }}" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  
+
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +35,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-  
+
 </head>
 
 <body>
@@ -50,8 +50,9 @@
   <!-- Navbar Start -->
   <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 px-4 px-lg-5">
       <a href="index.html" class="navbar-brand d-flex align-items-center">
-          <h2 class="m-0 text-primary"><img class="img-fluid me-2" src="assets/img/icon-1.png" alt=""
-                  style="width: 45px;">Ahorra Crédito</h2>
+          <h2 class="m-0 text-primary">
+          {{-- <img class="img-fluid me-2" src="assets/img/icon-1.png" alt="" style="width: 45px;"> --}}
+          Ahorra Crédito</h2>
       </a>
       <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
           <span class="navbar-toggler-icon"></span>
@@ -88,14 +89,14 @@
       <div class="container py-5">
           <div class="row g-5 align-items-center">
               <div class="col-lg-6">
-                  <h1 class="display-4 mb-3 animated slideInDown">Make Better Life With Trusted CryptoCoin</h1>
+                  <h1 class="display-4 mb-3 animated slideInDown">Make Better Life With Trusted</h1>
                   <p class="animated slideInDown">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
                       diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo
                       magna dolore erat amet</p>
                   <a href="" class="btn btn-primary py-3 px-4 animated slideInDown">Explore More</a>
               </div>
               <div class="col-lg-6 animated fadeIn">
-                  <img class="img-fluid animated pulse infinite" style="animation-duration: 3s;" src="assets/img/hero-1.png"
+                  <img class="img-fluid animated pulse infinite" style="animation-duration: 3s;" src="assets/img/hero-1.jpg"
                       alt="">
               </div>
           </div>
@@ -109,12 +110,12 @@
       <div class="container">
           <div class="row g-5 align-items-center">
               <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <img class="img-fluid" src="assets/img/about.png" alt="">
+                  <img class="img-fluid" src="assets/img/skills.png" alt="">
               </div>
               <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                   <div class="h-100">
                       <h1 class="display-6">About Us</h1>
-                      <p class="text-primary fs-5 mb-4">The Most Trusted Cryptocurrency Platform</p>
+                      <p class="text-primary fs-5 mb-4">The Most Trusted Platform</p>
                       <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos.
                           Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet
                       </p>
@@ -167,11 +168,11 @@
 
 
   <!-- Features Start -->
-  <div class="container-xxl py-5">
+  {{-- <div class="container-xxl py-5">
       <div class="container">
           <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
               <h1 class="display-6">Why Us!</h1>
-              <p class="text-primary fs-5 mb-5">The Best In The crypto Industry</p>
+              <p class="text-primary fs-5 mb-5">The Best In The Industry</p>
           </div>
           <div class="row g-5">
               <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -236,16 +237,16 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> --}}
   <!-- Features End -->
 
 
   <!-- Service Start -->
-  <div class="container-xxl bg-light py-5 my-5">
+  {{-- <div class="container-xxl bg-light py-5 my-5">
       <div class="container py-5">
           <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
               <h1 class="display-6">Services</h1>
-              <p class="text-primary fs-5 mb-5">Buy, Sell And Exchange Cryptocurrency</p>
+              <p class="text-primary fs-5 mb-5">Buy, Sell And Exchange</p>
           </div>
           <div class="row g-4">
               <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -304,7 +305,7 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> --}}
   <!-- Service End -->
 
 
@@ -353,7 +354,7 @@
 
 
   <!-- Token Sale Start -->
-  <div class="container-xxl bg-light py-5 my-5">
+  {{-- <div class="container-xxl bg-light py-5 my-5">
       <div class="container py-5">
           <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
               <h1 class="display-6">Token Sale</h1>
@@ -395,7 +396,7 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> --}}
   <!-- Token Sale Start -->
 
 
@@ -542,8 +543,8 @@
       <div class="container py-5">
           <div class="row g-5">
               <div class="col-md-6">
-                  <h1 class="text-primary mb-4"><img class="img-fluid me-2" src="assets/img/icon-1.png" alt=""
-                          style="width: 45px;">CryptoCoin</h1>
+                  <h1 class="text-primary mb-4"><img class="img-fluid me-2" src="assets/img/.png" alt=""
+                          style="width: 45px;"></h1>
                   <span>Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed
                       stet lorem sit clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum
                       et lorem et sit.</span>
