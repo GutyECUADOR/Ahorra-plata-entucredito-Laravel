@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCreditsTable extends Migration
+class CreateCreditosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCreditsTable extends Migration
      */
     public function up()
     {
-        Schema::create('credits', function (Blueprint $table) {
+        Schema::create('creditos', function (Blueprint $table) {
             $table->id();
-            $table->decimal('monto_prestamo', 9,2);
-            $table->integer('cantidad_cuotas');
-            $table->decimal('porcentaje_interes',4,2);
+            $table->text('nombre')->nullable();
+            $table->decimal('cantidad', 9,2);
+            $table->integer('cuotas');
+            $table->decimal('interes',4,2);
             $table->unsignedBigInteger('user_id');
-            $table->text('observacion')->nullable();
             $table->boolean('activo')->default(1);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
@@ -33,6 +33,6 @@ class CreateCreditsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('credits');
+        Schema::dropIfExists('creditos');
     }
 }
