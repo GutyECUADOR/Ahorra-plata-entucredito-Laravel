@@ -18,7 +18,7 @@ class CreateCreditosTable extends Migration
             $table->text('nombre')->nullable();
             $table->bigInteger('cantidad');
             $table->integer('cuotas');
-            $table->decimal('interes',4,2);
+            $table->decimal('interes');
             $table->unsignedBigInteger('user_id');
             $table->boolean('activo')->default(1);
             $table->timestamps();

@@ -85,6 +85,15 @@
                             </div>
                         </div>
 
+                         @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
+                        <!-- Validation Errors -->
+                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
                         <div class="row">
                             <div class="col-12 col-lg-12 d-flex">
                                 <div class="card flex-fill">

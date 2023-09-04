@@ -43,9 +43,9 @@ class CreditoController extends Controller
         $data = $request->all();
         $request->validate([
             'nombre' => 'required|max:190',
-            'cantidad' => 'required|int',
-            'cuotas' => 'required|int',
-            'interes' => 'required|numeric',
+            'cantidad' => 'required|numeric|digits_between:1,19',
+            'cuotas' => 'required|numeric|digits_between:1,4',
+            'interes' => 'required|numeric|between:0,999.99',
         ]);
 
         Credito::create($data);
