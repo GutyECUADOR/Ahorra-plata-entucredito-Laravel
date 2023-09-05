@@ -22,7 +22,10 @@
 
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+
     </head>
-   {{ $slot }}
+        {{ $slot }}
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+        <script src="{{ asset('assets/js/dashboard.js')}}?<?php echo date('Ymdhiiss')?>" defer></script>
 </html>

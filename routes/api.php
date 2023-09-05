@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AvatarController;
 use App\Http\Controllers\API\DiasInversionController;
 use App\Http\Controllers\API\InversionController;
 use App\Http\Controllers\API\TipoInversionController;
+use App\Http\Controllers\API\AnalisisController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,8 +28,10 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/userdata', [AuthController::class, 'userData'])->middleware('auth:sanctum');
 
-// API Inversion 
-Route::apiResource('/inversion', InversionController::class)->middleware('auth:sanctum'); 
+// API Inversion
+Route::apiResource('/inversion', InversionController::class)->middleware('auth:sanctum');
 Route::apiResource('/tiposinversion', TipoInversionController::class)->middleware('auth:sanctum');
 Route::apiResource('/diasinversion', DiasInversionController::class)->middleware('auth:sanctum');
-Route::post('/avatar', [AvatarController::class, 'store'])->middleware('auth:sanctum');;
+Route::post('/avatar', [AvatarController::class, 'store'])->middleware('auth:sanctum');
+
+Route::apiResource('/analisis', AnalisisController::class);

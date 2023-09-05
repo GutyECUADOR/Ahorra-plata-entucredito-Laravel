@@ -24,7 +24,9 @@
                 </div>
             </nav>
 
-            <div class="main">
+            <div class="main" id="app">
+                <input class="form-control" type="hidden" name="hiddenCreditoID" id="hiddenCreditoID" value="{{$credito->id}}">
+
                 <nav class="navbar navbar-expand navbar-light navbar-bg">
                     <a class="sidebar-toggle js-sidebar-toggle">
                         <i class="hamburger align-self-center"></i>
@@ -76,12 +78,11 @@
                     <div class="container-fluid p-0">
 
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                            <h1 class="h3 mb-3"><strong>Mi</strong> Dashboard</h1>
+                            <h1 class="h3 mb-3"><strong>Analisis de Crédito</strong> {{ $credito->id}}</h1>
                             <div class="btn-toolbar mb-2 mb-md-0">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearCreditoModal">
-                                    <span data-feather="file"></span>
-									 Nuevo Crédito
-                                </button>
+                                <a href="{{route('dashboard')}}" class="btn btn-primary">
+									 Regresar
+                                </a>
                             </div>
                         </div>
 
@@ -97,93 +98,37 @@
                         <div class="row">
                             <div class="col-12 col-lg-12 d-flex">
                                 <div class="card flex-fill">
-                                    <div class="card-header">
-
-                                        <h5 class="card-title mb-0">últimos créditos</h5>
-                                    </div>
                                     <table class="table table-hover my-0">
                                         <thead>
                                             <tr>
-                                                <th>Nombre</th>
-                                                <th class="d-none d-xl-table-cell">Monto del Crédito </th>
+                                                <th class="d-none d-xl-table-cell">Meses</th>
                                                 <th class="d-none d-xl-table-cell">Cuotas</th>
-                                                <th class="d-none d-md-table-cell">Interes</th>
-                                                <th class="d-none d-md-table-cell">Fecha</th>
-                                                 <th class="d-none d-md-table-cell">Análisis</th>
+                                                <th class="d-none d-md-table-cell">Abono a Interes</th>
+                                                <th class="d-none d-md-table-cell">Abono a Capital</th>
+                                                <th class="d-none d-md-table-cell">Saldo</th>
+                                                <th class="d-none d-md-table-cell">Abono extra a capital</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($creditos as $credito)
-                                            <tr>
-                                                <td>{{ $credito->nombre }}</td>
-                                                <td>{{ $credito->cantidad }}</td>
-                                                <td>{{ $credito->cuotas }}</td>
-                                                <td>{{ $credito->interes }}</td>
-                                                <td>{{ $credito->created_at }}</td>
-                                                <td>
-                                                    <form method="POST" action="{{ route('analisis.index', $credito) }}">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-success">
-                                                            <span data-feather="bar-chart-2"></span>
-                                                            Análisis
-                                                        </button>
-                                                     </form>
+                                            <tr v-for="fila in tablaAmortizacion">
+                                                <td>@{{ fila.mes }}</td>
+                                                <td>@{{ fila.cuota }}</td>
+                                                <td>@{{ fila.ainteres }}</td>
+                                                <td>@{{ fila.acapital }}</td>
+                                                <td>@{{ fila.capital }}</td>
+
+
+
+
+
                                                 </td>
                                             </tr>
-                                            @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
 
-                        </div>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="crearCreditoModal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Nuevo crédito</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <form method="POST" action="{{ route('creditos.store') }}">
-                                        @csrf
-
-                                        <!-- Name -->
-                                        <div class="form-floating mb-3">
-                                            <input type="text" name="nombre" value="{{old('nombre')}}" class="form-control" id="nombre" required autofocus>
-                                            <label for="nombre" class="text-dark">Nombre de Referencia</label>
-                                        </div>
-
-                                        <div class="form-floating mb-3">
-                                            <input type="number" name="cantidad" class="form-control" id="cantidad" min="1" step="0.01" required>
-                                            <label for="cantidad" class="text-dark">Cantidad (Valor del Crédito)</label>
-                                        </div>
-
-                                        <div class="form-floating mb-3">
-                                            <input type="number" name="cuotas" class="form-control" id="cuotas" min="1" step="1" required>
-                                            <label for="cuotas" class="text-dark">Cantidad de Cuotas</label>
-                                        </div>
-
-                                        <div class="form-floating mb-3">
-                                            <input type="number" name="interes" class="form-control" id="interes" min="1" step="0.01" required>
-                                            <label for="interes" class="text-dark">Interes</label>
-                                        </div>
-
-                                         <div class="d-grid gap-2">
-                                            <button class="btn-block btn btn-lg btn-primary" type="submit">Registrar</button>
-                                        </div>
-
-                                    </form>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-								</div>
-                            </div>
-                            </div>
                         </div>
 
                     </div>

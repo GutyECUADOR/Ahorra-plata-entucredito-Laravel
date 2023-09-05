@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-navbar-menu></x-navbar-menu>
-  
+
     <div class="container-fluid">
         <div class="row">
             <x-sidebar-menu></x-sidebar-menu>
@@ -53,7 +53,7 @@
                                             <form method="POST" action="{{ route('tipos-inversion.destroy', $tipo_inversion->id)}}">
                                                 @method('delete')
                                                 @csrf
-    
+
                                                 <a class="btn btn-sm btn-danger"
                                                         onclick="event.preventDefault();
                                                                 if (window.confirm('Confirma eliminar registro?')) {
@@ -64,12 +64,12 @@
                                                 </a>
                                             </form>
                                           </div>
-                                       
-                                    
+
+
                                     </td>
                                 </tr>
                             @endforeach
-                       
+
                         </tbody>
                     </table>
                 </div>
@@ -85,10 +85,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                       
+
                         <form method="POST" action="{{ route('tipos-inversion.store') }}">
                             @csrf
-            
+
                             <!-- Name -->
                             <div class="form-floating mb-3">
                                 <input type="text" name="nombre" value="{{old('nombre')}}" class="form-control" id="nombre" required autofocus>
@@ -109,7 +109,7 @@
                             <div class="d-grid gap-2">
                                 <button class="btn-block btn btn-lg btn-primary" type="submit">Registrar</button>
                             </div>
-            
+
                         </form>
 
                     </div>
@@ -121,6 +121,6 @@
             </div>
         </div>
     </div>
-       
-    
+
+
 </x-app-layout>
