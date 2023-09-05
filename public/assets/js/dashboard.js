@@ -1,12 +1,13 @@
 
 
 class FilaPrestamo {
-constructor({mes, cuota, ainteres, acapital, capital}) {
+constructor({mes, cuota, ainteres, acapital, capital, aextracapital=0}) {
     this.mes = mes;
     this.cuota = cuota;
     this.ainteres = ainteres;
     this.acapital = acapital;
     this.capital = capital;
+    this.aextracapital = aextracapital;
 }
 
 }
@@ -41,7 +42,9 @@ const app = new Vue({
 
             console.table(cantidad, interes, cuotas);
 
-            const cuota_prestamo = Math.ceil((cantidad * (interes*(1+interes) ** cuotas)) / (((1 + interes) ** cuotas) - 1));
+            const cuota_prestamo = ((cantidad * (interes*(1+interes) ** cuotas)) / (((1 + interes) ** cuotas) - 1));
+
+            console.log(cuota_prestamo);
 
             /* Fila de inicio */
             let filaInicio = new FilaPrestamo({
@@ -57,14 +60,18 @@ const app = new Vue({
             let contador = 1;
             let capital_residual = cantidad;
             while (this.credito.cuotas >= contador) {
+                console.log('cap_recidual:', capital_residual);
+                let ainteres = interes * capital_residual;
 
+                let acapital = cuota_prestamo - ainteres ;
+                let capital = capital_residual - acapital
 
                 let filaPrestamo = new FilaPrestamo({
                     mes: contador,
                     cuota: cuota_prestamo,
-                    ainteres: interes * capital_residual,
-                    acapital: this.cuota - this.ainteres,
-                    capital: capital_residual - this.acapital
+                    ainteres: ainteres,
+                    acapital: acapital,
+                    capital: capital
                 });
 
                 console.log(filaPrestamo);
