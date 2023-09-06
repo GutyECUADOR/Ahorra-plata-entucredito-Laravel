@@ -112,10 +112,10 @@
                                         <tbody>
                                             <tr v-for="fila in tablaAmortizacion">
                                                 <td>@{{ fila.mes.toFixed(0) }}</td>
-                                                <td>@{{ fila.getCuota().toFixed(0) }}</td>
-                                                <td>@{{ fila.getAinteres().toFixed(0) | checkPositiveValue }}</td>
-                                                <td>@{{ fila.getAcapital().toFixed(0) | checkPositiveValue }}</td>
-                                                <td>@{{ fila.capital.toFixed(0) | checkPositiveValue }}</td>
+                                                <td>@{{ fila.getCuota().toFixed(0) | numberWithCommas }}</td>
+                                                <td>@{{ fila.getAinteres().toFixed(0) | checkPositiveValue | numberWithCommas }}</td>
+                                                <td>@{{ fila.getAcapital().toFixed(0) | checkPositiveValue | numberWithCommas }}</td>
+                                                <td>@{{ fila.capital.toFixed(0) | checkPositiveValue | numberWithCommas }}</td>
                                                 <td v-if="fila.mes !=0 ">
                                                     <input type="number" v-model.number="fila.aextracapital" class="form-control text-center input-sm" v-on:change="reGenerateTable">
                                                 </td>
@@ -145,9 +145,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h1 class="mt-1 mb-3">$ @{{ahorroEstimado.toFixed(0)}}</h1>
+                                        <h1 class="mt-1 mb-3">$ @{{ahorroEstimado.toFixed(0) | numberWithCommas}}</h1>
                                         <div class="mb-0">
-                                            <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> @{{ ahorroEstimadoPorcent.toFixed(2) }}% </span>
+                                            <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> @{{ ahorroEstimadoPorcent.toFixed(2) | numberWithCommas }}% </span>
                                             <span class="text-muted">de ahorro estimado</span>
                                         </div>
                                     </div>

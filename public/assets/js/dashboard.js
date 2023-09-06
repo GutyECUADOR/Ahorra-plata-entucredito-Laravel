@@ -140,36 +140,39 @@ const app = new Vue({
 
     },
     filters: {
-    checkStatus: function (value) {
-        let status = 'No definido';
-        switch (value) {
-        case '0':
-        status = 'Pendiente aprobación'
-        break;
+        checkStatus: function (value) {
+            let status = 'No definido';
+            switch (value) {
+            case '0':
+            status = 'Pendiente aprobación'
+            break;
 
-        case '1':
-        status = 'Aprobado'
-        break;
+            case '1':
+            status = 'Aprobado'
+            break;
 
-        case '2':
-        status = 'Anulado'
-        break;
+            case '2':
+            status = 'Anulado'
+            break;
 
-        default:
-        break;
+            default:
+            break;
+            }
+            return status;
+        },
+        checkPositiveValue: function (value) {
+            if (value <=0) {
+                return 0;
+            }
+            return value;
+        },
+        numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
-        return status;
-    },
-    checkPositiveValue: function (value) {
-        if (value <=0) {
-            return 0;
-        }
-        return value;
-    }
     },
     mounted(){
-    this.cod_credito = document.querySelector('#hiddenCreditoID').value;
-    this.getTablaAnalisis();
+        this.cod_credito = document.querySelector('#hiddenCreditoID').value;
+        this.getTablaAnalisis();
 
     }
 })
