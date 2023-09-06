@@ -54,6 +54,7 @@ const app = new Vue({
     cod_credito: null,
     credito: null,
     ahorroEstimado: 0,
+    cuotas_ahorradas: 0,
     ahorroEstimadoPorcent: 0,
     tablaAmortizacion: [],
     search_solicitudes: {
@@ -135,6 +136,7 @@ const app = new Vue({
             });
 
             this.ahorroEstimado = ahorroEstimado;
+            this.cuotas_ahorradas = cuotas_ahorradas;
             this.ahorroEstimadoPorcent = cuotas_ahorradas * 100 / this.credito.cuotas;
         }
 
