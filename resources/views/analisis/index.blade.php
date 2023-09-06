@@ -113,11 +113,11 @@
                                             <tr v-for="fila in tablaAmortizacion">
                                                 <td>@{{ fila.mes.toFixed(0) }}</td>
                                                 <td>@{{ fila.cuota.toFixed(0) }}</td>
-                                                <td>@{{ fila.ainteres.toFixed(0) }}</td>
-                                                <td>@{{ fila.acapital.toFixed(0) }}</td>
+                                                <td>@{{ fila.getAinteres().toFixed(0) }}</td>
+                                                <td>@{{ fila.getAcapital().toFixed(0) }}</td>
                                                 <td>@{{ fila.capital.toFixed(0) }}</td>
-                                                <td>
-                                                    <input type="number" v-model="fila.aextracapital" class="form-control text-center input-sm">
+                                                <td v-if="fila.mes !=0 ">
+                                                    <input type="number" v-model="fila.aextracapital" class="form-control text-center input-sm" v-on:change="generarTabla">
                                                 </td>
 
 

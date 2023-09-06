@@ -1,14 +1,37 @@
 
 
 class FilaPrestamo {
-constructor({mes, cuota, ainteres, acapital, capital, aextracapital=0}) {
+constructor({mes=0, cuota=0, ainteres=0, acapital=0, capital=0, aextracapital=0, interes=0, capital_residual=0}) {
     this.mes = mes;
     this.cuota = cuota;
     this.ainteres = ainteres;
     this.acapital = acapital;
     this.capital = capital;
     this.aextracapital = aextracapital;
-}
+    this.interes = interes;
+    this.capital_residual = capital_residual;
+
+
+    }
+
+    getAinteres(){
+        this.ainteres = this.interes * this.capital_residual;
+        return this.ainteres;
+    }
+
+    getAcapital(){
+        this.acapital = this.cuota - this.ainteres;
+        return this.acapital;
+    }
+
+    getCapital(){
+        this.getAinteres()
+        this.getAcapital()
+        this.capital = this.capital_residual - this.acapital
+        return this.capital;
+    }
+
+
 
 }
 
@@ -33,9 +56,11 @@ const app = new Vue({
                 console.error(error);
             });
             console.log(response)
-
             this.credito = response.credito;
+            this.generarTabla();
 
+        },
+        generarTabla(){
             const cantidad = this.credito.cantidad; // Valor iniciar del credito
             const interes = this.credito.interes / 100;
             const cuotas = this.credito.cuotas;
@@ -48,35 +73,29 @@ const app = new Vue({
 
             /* Fila de inicio */
             let filaInicio = new FilaPrestamo({
-                mes: 0,
-                cuota: 0,
-                ainteres: 0,
-                acapital: 0,
                 capital: cantidad
             });
 
             this.tablaAmortizacion.push(filaInicio);
 
             let contador = 1;
-            let capital_residual = cantidad;
-            while (this.credito.cuotas >= contador) {
-                console.log('cap_recidual:', capital_residual);
-                let ainteres = interes * capital_residual;
+            let capital_residual = filaInicio.capital;
 
-                let acapital = cuota_prestamo - ainteres ;
-                let capital = capital_residual - acapital
+            while (this.credito.cuotas >= contador) {
+                /* let ainteres = interes * capital_residual;
+
+                let acapital = cuota_prestamo - ainteres;
+                let capital = capital_residual - acapital */
 
                 let filaPrestamo = new FilaPrestamo({
                     mes: contador,
                     cuota: cuota_prestamo,
-                    ainteres: ainteres,
-                    acapital: acapital,
-                    capital: capital
+                    capital_residual,
+                    interes
                 });
 
-                console.log(filaPrestamo);
 
-                capital_residual = filaPrestamo.capital;
+                capital_residual = filaPrestamo.getCapital();
 
 
                 this.tablaAmortizacion.push(filaPrestamo);
@@ -85,9 +104,7 @@ const app = new Vue({
 
 
             console.log(this.tablaAmortizacion);
-
-
-        },
+        }
 
     },
     filters: {
