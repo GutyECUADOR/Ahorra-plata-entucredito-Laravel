@@ -96,7 +96,7 @@
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="row">
-                            <div class="col-12 col-lg-12 d-flex">
+                            <div class="col-9 col-lg-9 d-flex">
                                 <div class="card flex-fill">
                                     <table class="table table-hover my-0">
                                         <thead>
@@ -112,12 +112,12 @@
                                         <tbody>
                                             <tr v-for="fila in tablaAmortizacion">
                                                 <td>@{{ fila.mes.toFixed(0) }}</td>
-                                                <td>@{{ fila.cuota.toFixed(0) }}</td>
-                                                <td>@{{ fila.getAinteres().toFixed(0) }}</td>
-                                                <td>@{{ fila.getAcapital().toFixed(0) }}</td>
-                                                <td>@{{ fila.capital.toFixed(0) }}</td>
+                                                <td>@{{ fila.getCuota().toFixed(0) }}</td>
+                                                <td>@{{ fila.getAinteres().toFixed(0) | checkPositiveValue }}</td>
+                                                <td>@{{ fila.getAcapital().toFixed(0) | checkPositiveValue }}</td>
+                                                <td>@{{ fila.capital.toFixed(0) | checkPositiveValue }}</td>
                                                 <td v-if="fila.mes !=0 ">
-                                                    <input type="number" v-model="fila.aextracapital" class="form-control text-center input-sm" v-on:change="generarTabla">
+                                                    <input type="number" v-model.number="fila.aextracapital" class="form-control text-center input-sm" v-on:change="reGenerateTable">
                                                 </td>
 
 
@@ -131,6 +131,29 @@
                                 </div>
                             </div>
 
+                            <div class="col-sm-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Ahorro</h5>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <div class="stat text-primary">
+                                                    <i class="align-middle" data-feather="dollar-sign"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h1 class="mt-1 mb-3">$ @{{ahorroEstimado.toFixed(0)}}</h1>
+                                        <div class="mb-0">
+                                            <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> @{{ ahorroEstimadoPorcent.toFixed(2) }}% </span>
+                                            <span class="text-muted">de ahorro estimado</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>
