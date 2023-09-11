@@ -53,6 +53,9 @@ const app = new Vue({
     data: {
     cod_credito: null,
     credito: null,
+    cuotaPrestamo: 0,
+    pagoTotalCredito: 0,
+    pagoTotalCreditoMenosAbonos: 0,
     ahorroEstimado: 0,
     cuotas_ahorradas: 0,
     ahorroEstimadoPorcent: 0,
@@ -107,11 +110,12 @@ const app = new Vue({
 
                 capital_residual = filaPrestamo.getCapital();
 
-
+                this.cuotaPrestamo = cuota_prestamo
                 this.tablaAmortizacion.push(filaPrestamo);
                 contador++;
             }
 
+            this.pagoTotalCredito = this.credito?.cuotas * this.cuotaPrestamo
 
             console.log(this.tablaAmortizacion);
         },
@@ -135,9 +139,11 @@ const app = new Vue({
                 }
             });
 
+            this.pagoTotalCredito = this.credito?.cuotas * this.cuotaPrestamo
             this.ahorroEstimado = ahorroEstimado;
             this.cuotas_ahorradas = cuotas_ahorradas;
             this.ahorroEstimadoPorcent = cuotas_ahorradas * 100 / this.credito.cuotas;
+            this.pagoTotalCreditoMenosAbonos = this.pagoTotalCredito - this.ahorroEstimado;
         }
 
     },

@@ -96,8 +96,8 @@
                         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
                         <div class="row">
-                            <div class="col-9 col-lg-9 d-flex">
-                                <div class="card flex-fill">
+                            <div class="col-12 col-md-9 d-flex">
+                                <div class="card flex-fill table-responsive">
                                     <table class="table table-hover my-0">
                                         <thead>
                                             <tr>
@@ -131,8 +131,44 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
+                            <div class="col-12 col-md-3">
                                 <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Total a pagar por tu crédito</h5>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <div class="stat text-primary">
+                                                    <i class="align-middle" data-feather="dollar-sign"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h1 class="mt-1 mb-3">$ @{{ pagoTotalCredito.toFixed(0) | numberWithCommas}}</h1>
+
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Total a pagar despúes de abono a capital </h5>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <div class="stat text-primary">
+                                                    <i class="align-middle" data-feather="dollar-sign"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h1 class="mt-1 mb-3">$ @{{ pagoTotalCreditoMenosAbonos.toFixed(0) | numberWithCommas}}</h1>
+
+                                    </div>
+                                </div>
+
+                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col mt-0">
