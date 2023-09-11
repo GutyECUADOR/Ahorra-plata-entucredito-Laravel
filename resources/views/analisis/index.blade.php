@@ -117,7 +117,7 @@
                                                 <td>@{{ fila.getAcapital().toFixed(0) | checkPositiveValue | numberWithCommas }}</td>
                                                 <td>@{{ fila.capital.toFixed(0) | checkPositiveValue | numberWithCommas }}</td>
                                                 <td v-if="fila.mes !=0 ">
-                                                    <input type="number" v-model.number="fila.aextracapital" class="form-control text-center input-sm" v-on:change="reGenerateTable">
+                                                    <input type="text" :value="fila.getExtraCapital()" v-on:keyup="fila.setExtraCapital($event)" class="form-control text-center input-sm" v-on:change="reGenerateTable">
                                                 </td>
 
 

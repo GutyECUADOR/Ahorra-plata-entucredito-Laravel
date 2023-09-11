@@ -11,7 +11,19 @@ constructor({mes=0, cuota=0, ainteres=0, acapital=0, capital=0, aextracapital=0,
     this.interes = interes;
     this.capital_residual = capital_residual;
 
+    }
 
+    getExtraCapital(){
+        const comas = this.aextracapital.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        console.log(comas);
+        return comas;
+    }
+
+    setExtraCapital(event){
+        const num = event.target.value;
+
+        const withOutCommas = num.replace(/,/g, '')
+        return this.aextracapital = parseInt(withOutCommas);
     }
 
     getCuota(){
@@ -144,7 +156,11 @@ const app = new Vue({
             this.cuotas_ahorradas = cuotas_ahorradas;
             this.ahorroEstimadoPorcent = cuotas_ahorradas * 100 / this.credito.cuotas;
             this.pagoTotalCreditoMenosAbonos = this.pagoTotalCredito - this.ahorroEstimado;
+        },
+        test(event){
+
         }
+
 
     },
     filters: {
