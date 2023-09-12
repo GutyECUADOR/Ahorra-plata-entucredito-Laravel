@@ -49,7 +49,7 @@ class CreditoController extends Controller
         ]);
 
         Credito::create($data);
-        return redirect()->route('creditos.index')->with('status', 'El crédito '.$request->name.' registrada con éxito!');
+        return redirect()->route('creditos.index')->with('status', 'El crédito se registró '.$request->name.' con éxito!');
     }
 
     /**

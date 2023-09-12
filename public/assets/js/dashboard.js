@@ -1,9 +1,10 @@
 
 
 class FilaPrestamo {
-constructor({mes=0, cuota=0, ainteres=0, acapital=0, capital=0, aextracapital=0, interes=0, capital_residual=0}) {
+constructor({mes=0, cuota=0, cuotas=0, ainteres=0, acapital=0, capital=0, aextracapital=0, interes=0, capital_residual=0}) {
     this.mes = mes;
     this.cuota = cuota;
+    this.cuotas = cuotas;
     this.ainteres = ainteres;
     this.acapital = acapital;
     this.capital = capital;
@@ -13,14 +14,37 @@ constructor({mes=0, cuota=0, ainteres=0, acapital=0, capital=0, aextracapital=0,
 
     }
 
+
+    getterCapital(){
+        const comas = this.capital.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return comas;
+    }
+
+    setCapital(event){
+        const num = event.target.value;
+        const regex = /^[0-9.,\b]+$/;
+        if (!regex.test(num)) {
+            event.target.value = event.target.value.slice(0, -1);
+            return 0;
+        }
+
+        const withOutCommas = num.replace(/,/g, '')
+        return this.capital = parseInt(withOutCommas);
+    }
+
+
     getExtraCapital(){
         const comas = this.aextracapital.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        console.log(comas);
         return comas;
     }
 
     setExtraCapital(event){
         const num = event.target.value;
+        const regex = /^[0-9.,\b]+$/;
+        if (!regex.test(num)) {
+            event.target.value = event.target.value.slice(0, -1);
+            return 0;
+        }
 
         const withOutCommas = num.replace(/,/g, '')
         return this.aextracapital = parseInt(withOutCommas);
@@ -63,6 +87,7 @@ constructor({mes=0, cuota=0, ainteres=0, acapital=0, capital=0, aextracapital=0,
 const app = new Vue({
     el: '#app',
     data: {
+    nuevo_credito: new FilaPrestamo({}),
     cod_credito: null,
     credito: null,
     cuotaPrestamo: 0,
@@ -71,6 +96,7 @@ const app = new Vue({
     ahorroEstimado: 0,
     cuotas_ahorradas: 0,
     ahorroEstimadoPorcent: 0,
+    imagenPremio: 'moto-flat.jpg',
     tablaAmortizacion: [],
     search_solicitudes: {
         isloading: false,
@@ -157,11 +183,9 @@ const app = new Vue({
             this.ahorroEstimadoPorcent = cuotas_ahorradas * 100 / this.credito.cuotas;
             this.pagoTotalCreditoMenosAbonos = this.pagoTotalCredito - this.ahorroEstimado;
         },
-        test(event){
+        getPremio(){
 
         }
-
-
     },
     filters: {
         checkStatus: function (value) {
@@ -195,8 +219,10 @@ const app = new Vue({
         }
     },
     mounted(){
-        this.cod_credito = document.querySelector('#hiddenCreditoID').value;
-        this.getTablaAnalisis();
+        this.cod_credito = document.querySelector('#hiddenCreditoID')?.value;
+        if (this.cod_credito) {
+            this.getTablaAnalisis();
+        }
 
     }
 })

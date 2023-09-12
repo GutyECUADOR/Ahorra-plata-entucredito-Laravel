@@ -24,7 +24,8 @@
                 </div>
             </nav>
 
-            <div class="main">
+            <div class="main" id="app">
+
                 <nav class="navbar navbar-expand navbar-light navbar-bg">
                     <a class="sidebar-toggle js-sidebar-toggle">
                         <i class="hamburger align-self-center"></i>
@@ -116,7 +117,7 @@
                                             @foreach ($creditos as $credito)
                                             <tr>
                                                 <td>{{ $credito->nombre }}</td>
-                                                <td>{{ $credito->cantidad }}</td>
+                                                <td>{{ number_format($credito->cantidad) }}</td>
                                                 <td>{{ $credito->cuotas }}</td>
                                                 <td>{{ $credito->interes }}</td>
                                                 <td>{{ $credito->created_at }}</td>
@@ -158,17 +159,21 @@
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="number" name="cantidad" class="form-control" id="cantidad" min="1" step="0.01" required>
+                                            <input type="text" :value="nuevo_credito.getterCapital()" v-on:keyup="nuevo_credito.setCapital($event)" class="form-control">
                                             <label for="cantidad" class="text-dark">Cantidad (Valor del Crédito)</label>
+                                            <input type="hidden" v-model="nuevo_credito.capital" name="cantidad" class="form-control" id="cantidad" min="1" step="0.01" required>
                                         </div>
 
+
+
+
                                         <div class="form-floating mb-3">
-                                            <input type="number" name="cuotas" class="form-control" id="cuotas" min="1" step="1" required>
+                                            <input type="number" v-model.number="nuevo_credito.cuotas" name="cuotas" class="form-control" id="cuotas" min="1" step="1" required>
                                             <label for="cuotas" class="text-dark">Cantidad de Cuotas</label>
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="number" name="interes" class="form-control" id="interes" min="1" step="0.01" required>
+                                            <input type="number" v-model.number="nuevo_credito.interes"  name="interes" class="form-control" id="interes" min="1" step="0.01" required>
                                             <label for="interes" class="text-dark">Interes</label>
                                         </div>
 

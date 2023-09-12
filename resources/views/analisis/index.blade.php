@@ -106,7 +106,7 @@
                                                 <th class="d-none d-md-table-cell">Abono a Interes</th>
                                                 <th class="d-none d-md-table-cell">Abono a Capital</th>
                                                 <th class="d-none d-md-table-cell">Saldo</th>
-                                                <th class="d-none d-md-table-cell">Abono extra a capital</th>
+                                                <th class="d-none d-md-table-cell" style="min-width:150px">Abono extra a capital</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -168,7 +168,7 @@
                                     </div>
                                 </div>
 
-                                 <div class="card">
+                                <div class="card">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col mt-0">
@@ -192,6 +192,26 @@
                                         </div>
                                     </div>
                                 </div>
+
+                               {{--  <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Con este ahorro podrias adquirir</h5>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <div class="stat text-primary">
+                                                    <i class="align-middle" data-feather="shopping-cart"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-0">
+                                            <img class="img-fluid" :src="'/assets/img/premios/' + imagenPremio" alt="Premio">
+                                        </div>
+                                    </div>
+                                </div> --}}
 
                             </div>
                         </div>
