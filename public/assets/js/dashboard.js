@@ -90,6 +90,7 @@ const app = new Vue({
     nuevo_credito: new FilaPrestamo({}),
     cod_credito: null,
     credito: null,
+    totalCreditoInicial: 0,
     cuotaPrestamo: 0,
     pagoTotalCredito: 0,
     pagoTotalCreditoMenosAbonos: 0,
@@ -114,6 +115,7 @@ const app = new Vue({
             });
             console.log(response)
             this.credito = response.credito;
+            this.totalCreditoInicial = this.credito.cantidad;
             this.generarTabla();
 
         },

@@ -133,28 +133,49 @@
 
                             <div class="col-12 col-md-3">
                                 <div class="card">
+                                    <div class="card-header">
+                                        Crédito Actual
+                                    </div>
                                     <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Saldo a capital</h5>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <div class="stat text-primary">
+                                                    <i class="align-middle" data-feather="dollar-sign"></i>
+                                                </div>
+                                            </div>
+                                            <h1 class="mt-1 mb-3">$ @{{ totalCreditoInicial.toFixed(0) | numberWithCommas}}</h1>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Saldo a Intereses</h5>
+                                            </div>
+                                            <h1 class="mt-1 mb-3">$ @{{ (pagoTotalCredito- totalCreditoInicial).toFixed(0) | numberWithCommas}}</h1>
+                                        </div>
+
                                         <div class="row">
                                             <div class="col mt-0">
                                                 <h5 class="card-title">Total a pagar por tu crédito</h5>
                                             </div>
 
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="align-middle" data-feather="dollar-sign"></i>
-                                                </div>
-                                            </div>
+                                            <h1 class="mt-1 mb-3">$ @{{ pagoTotalCredito.toFixed(0) | numberWithCommas}}</h1>
                                         </div>
-                                        <h1 class="mt-1 mb-3">$ @{{ pagoTotalCredito.toFixed(0) | numberWithCommas}}</h1>
 
                                     </div>
                                 </div>
 
                                 <div class="card">
+                                    <div class="card-header">
+                                        Crédito despúes de abono a capital
+                                    </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col mt-0">
-                                                <h5 class="card-title">Total a pagar despúes de abono a capital </h5>
+                                                <h5 class="card-title">Saldo a capital</h5>
                                             </div>
 
                                             <div class="col-auto">
@@ -162,6 +183,19 @@
                                                     <i class="align-middle" data-feather="dollar-sign"></i>
                                                 </div>
                                             </div>
+                                            <h1 class="mt-1 mb-3">$ @{{ totalCreditoInicial.toFixed(0) | numberWithCommas}}</h1>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Saldo a Intereses</h5>
+                                            </div>
+                                            <h1 class="mt-1 mb-3">$ @{{ (totalCreditoInicial - pagoTotalCreditoMenosAbonos ).toFixed(0) | numberWithCommas}}</h1>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Total a pagar despúes de abono a capital </h5>
+                                            </div>
+
                                         </div>
                                         <h1 class="mt-1 mb-3">$ @{{ pagoTotalCreditoMenosAbonos.toFixed(0) | numberWithCommas}}</h1>
 
@@ -169,7 +203,11 @@
                                 </div>
 
                                 <div class="card">
+                                    <div class="card-header">
+                                       Ahorro Generado
+                                    </div>
                                     <div class="card-body">
+
                                         <div class="row">
                                             <div class="col mt-0">
                                                 <h5 class="card-title">Ahorro</h5>
@@ -180,8 +218,8 @@
                                                     <i class="align-middle" data-feather="dollar-sign"></i>
                                                 </div>
                                             </div>
+                                            <h1 class="mt-1 mb-3">$ @{{ahorroEstimado.toFixed(0) | numberWithCommas}}</h1>
                                         </div>
-                                        <h1 class="mt-1 mb-3">$ @{{ahorroEstimado.toFixed(0) | numberWithCommas}}</h1>
                                         <div class="mb-0">
                                             <span class="text-primary"> <i class="mdi mdi-arrow-bottom-right"></i> @{{ cuotas_ahorradas.toFixed(0) }} </span>
                                             <span class="text-muted">cuotas ahorradas</span>
