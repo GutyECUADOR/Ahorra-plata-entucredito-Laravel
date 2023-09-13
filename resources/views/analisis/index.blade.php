@@ -80,9 +80,12 @@
                         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h3 mb-3"><strong>Analisis de Crédito</strong> {{ $credito->id}}</h1>
                             <div class="btn-toolbar mb-2 mb-md-0">
-                                <a href="{{route('dashboard')}}" class="btn btn-primary">
-									 Regresar
-                                </a>
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#abonoExtraModal">Agregar abono capital a todas las cuotas</a>
+                                    <a href="{{route('dashboard')}}" class="btn btn-primary">
+                                        Regresar
+                                    </a>
+                                 </div>
                             </div>
                         </div>
 
@@ -189,7 +192,7 @@
                                             <div class="col mt-0">
                                                 <h5 class="card-title">Saldo a Intereses</h5>
                                             </div>
-                                            <h1 class="mt-1 mb-3">$ @{{ (totalCreditoInicial - pagoTotalCreditoMenosAbonos ).toFixed(0) | numberWithCommas}}</h1>
+                                            <h1 class="mt-1 mb-3">$ @{{ (Math.abs(totalCreditoInicial - pagoTotalCreditoMenosAbonos) ).toFixed(0) | numberWithCommas}}</h1>
                                         </div>
                                         <div class="row">
                                             <div class="col mt-0">
@@ -256,6 +259,34 @@
 
                     </div>
                 </main>
+
+                <!-- Modal -->
+                <div class="modal fade" id="abonoExtraModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Aplicar Abono extra a capital a todas las cuotas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div class="form-floating mb-3">
+                                <input type="text" :value="aextracapitalAll.getExtraCapital()" v-on:keyup="aextracapitalAll.setExtraCapital($event)" name="cuotas" class="form-control" id="cuotas" min="1" step="1" required>
+                                <label for="cuotas" class="text-dark">Cantidad de abono a capital</label>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button class="btn-block btn btn-lg btn-primary" v-on:click="aplicarAbonoAll" type="button">Aplicar abono a capital</button>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
 
                 <footer class="footer">
                     <div class="container-fluid">

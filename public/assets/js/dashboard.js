@@ -88,6 +88,7 @@ const app = new Vue({
     el: '#app',
     data: {
     nuevo_credito: new FilaPrestamo({}),
+    aextracapitalAll : new FilaPrestamo({}),
     cod_credito: null,
     credito: null,
     totalCreditoInicial: 0,
@@ -185,8 +186,12 @@ const app = new Vue({
             this.ahorroEstimadoPorcent = cuotas_ahorradas * 100 / this.credito.cuotas;
             this.pagoTotalCreditoMenosAbonos = this.pagoTotalCredito - this.ahorroEstimado;
         },
-        getPremio(){
+        aplicarAbonoAll(){
 
+            this.tablaAmortizacion.forEach(filaPrestamo => {
+                filaPrestamo.aextracapital = this.aextracapitalAll.aextracapital;
+            });
+            this.reGenerateTable();
         }
     },
     filters: {
