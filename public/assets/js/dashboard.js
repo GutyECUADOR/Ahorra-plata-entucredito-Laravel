@@ -89,6 +89,8 @@ const app = new Vue({
     data: {
     nuevo_credito: new FilaPrestamo({}),
     aextracapitalAll : new FilaPrestamo({}),
+    cuotaInicio: 1,
+    cuotaFin: 1,
     cod_credito: null,
     credito: null,
     totalCreditoInicial: 0,
@@ -187,12 +189,29 @@ const app = new Vue({
             this.pagoTotalCreditoMenosAbonos = this.pagoTotalCredito - this.ahorroEstimado;
         },
         aplicarAbonoAll(){
+            if ((this.cuotaFin < 0 || this.cuotaInicio < 1) || this.cuotaFin > this.credito.cuotas || this.cuotaInicio > this.cuotaFin) {
+                alert(`Ingrese cuotas dentro del rango 1 y ${this.credito.cuotas}`);
+                return;
+            }
 
-            this.tablaAmortizacion.forEach(filaPrestamo => {
-                filaPrestamo.aextracapital = this.aextracapitalAll.aextracapital;
+            const range = Array( this.cuotaFin - this.cuotaInicio + 1).fill( this.cuotaInicio).map((x, y) => x + y)
+            console.log(range);
+
+            range.forEach( index => {
+                if (index <= this.credito.cuotas && index >0) {
+                    this.tablaAmortizacion[index].aextracapital = this.aextracapitalAll.aextracapital;
+                }
             });
+
+
             this.reGenerateTable();
+        },
+        resetAplicarAbonoAll(){
+            this.tablaAmortizacion.forEach(filaPrestamo => {
+                filaPrestamo.aextracapital = 0;
+            });
         }
+
     },
     filters: {
         checkStatus: function (value) {

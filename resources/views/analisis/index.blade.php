@@ -270,6 +270,16 @@
                         </div>
                         <div class="modal-body">
 
+                            <div class="form-floating mb-3">
+                                <input type="number" v-model.number="cuotaInicio"  name="cuotaInicio" class="form-control" id="cuotaInicio" min="1" step="1" required>
+                                <label for="cuotaInicio" class="text-dark">Desde la couta</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" v-model.number="cuotaFin"  name="cuotaFin" class="form-control" id="cuotaFin" min="1" step="1" required>
+                                <label for="cuotaFin" class="text-dark">Hasta la cuota </label>
+                            </div>
+
 
                             <div class="form-floating mb-3">
                                 <input type="text" :value="aextracapitalAll.getExtraCapital()" v-on:keyup="aextracapitalAll.setExtraCapital($event)" name="cuotas" class="form-control" id="cuotas" min="1" step="1" required>
@@ -278,6 +288,10 @@
 
                             <div class="d-grid gap-2">
                                 <button class="btn-block btn btn-lg btn-primary" v-on:click="aplicarAbonoAll" type="button">Aplicar abono a capital</button>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button class="btn-block btn btn-lg btn-danger" v-on:click="resetAplicarAbonoAll" type="button">Remover todos los abonos a capital</button>
                             </div>
 
                         </div>
