@@ -90,6 +90,7 @@ const app = new Vue({
     data: {
     nuevo_credito: new FilaPrestamo({}),
     aextracapitalAll : new FilaPrestamo({}),
+    abonos: [],
     cuotaInicio: 1,
     cuotaFin: 1,
     cod_credito: null,
@@ -120,6 +121,7 @@ const app = new Vue({
             });
             console.log(response)
             this.credito = response.credito;
+            this.abonos = response.abonos;
 
             this.credito_edit = new FilaPrestamo({
                 capital: response.credito.cantidad,
@@ -168,8 +170,17 @@ const app = new Vue({
             }
 
             this.pagoTotalCredito = this.credito?.cuotas * this.cuotaPrestamo
-
+            this.cargarAbonos();
+            this.reGenerateTable();
             console.log(this.tablaAmortizacion);
+        },
+        cargarAbonos(){
+            this.abonos.forEach(async abono => {
+                let filaPrestamo = this.tablaAmortizacion.find( x => x.mes === abono.mes );
+                if (filaPrestamo) {
+                    filaPrestamo.aextracapital = abono.aextracapital;
+                }
+            });
         },
         reGenerateTable(){
             let capital_residual = 0;
@@ -241,7 +252,7 @@ const app = new Vue({
             dataBody.abonos = abonos;
             dataBody.credito = this.credito;
 
-            console.log(JSON.stringify(dataBody));
+            //console.log(JSON.stringify(dataBody));
 
             const response = await fetch(`http://ahorraplataentucredito.test/api/analisis`, {
                 method: "POST",
@@ -257,6 +268,7 @@ const app = new Vue({
                 console.error(error);
             });
             console.log(response)
+            alert(response.message);
 
         }
 

@@ -35,6 +35,7 @@ class AnalisisController extends Controller
         $abonos = $request->get('abonos');
         $credito = $request->get('credito');
 
+        FilaPrestamo::where('credito_id',$credito["id"])->delete();
 
         foreach ($abonos as $abono) {
             $validator = Validator::make($abono, [
@@ -71,7 +72,7 @@ class AnalisisController extends Controller
     public function show($id)
     {
         $credito = Credito::findOrFail($id);
-        $abonos = FilaPrestamo::where('credito_id', $id)->orderBy('id', 'desc')->get();
+        $abonos = FilaPrestamo::where('credito_id', $id)->get();
         return response([
             'credito'=>$credito,
             'abonos'=>$abonos,
