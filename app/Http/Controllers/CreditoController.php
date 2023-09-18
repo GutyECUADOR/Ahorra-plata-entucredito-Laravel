@@ -71,7 +71,7 @@ class CreditoController extends Controller
      */
     public function edit(Credito $credito)
     {
-        //
+        return view('credito.edit', compact('credito'));
     }
 
     /**
@@ -83,7 +83,20 @@ class CreditoController extends Controller
      */
     public function update(Request $request, Credito $credito)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:190',
+            'cantidad' => 'required|numeric|digits_between:1,19',
+            'cuotas' => 'required|numeric|digits_between:1,4',
+            'interes' => 'required|numeric|between:0,999.99',
+        ]);
+
+        $credito->nombre = $request->nombre;
+        $credito->cantidad = $request->cantidad;
+        $credito->cuotas = $request->cuotas;
+        $credito->interes = $request->interes;
+
+        $credito->save();
+        return redirect()->route('dashboard')->with('status', 'crédito: '.$request->nombre.' actualizado con éxito!');
     }
 
     /**
@@ -94,6 +107,7 @@ class CreditoController extends Controller
      */
     public function destroy(Credito $credito)
     {
-        //
+        $credito->delete();
+        return redirect()->back()->with('status', 'Crédito '.$credito->nombre.' se ha eliminado con éxito!');
     }
 }

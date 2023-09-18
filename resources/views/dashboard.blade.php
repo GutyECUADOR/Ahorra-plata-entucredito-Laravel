@@ -110,7 +110,8 @@
                                                 <th class="d-none d-xl-table-cell">Cuotas</th>
                                                 <th class="d-none d-md-table-cell">Interes</th>
                                                 <th class="d-none d-md-table-cell">Fecha</th>
-                                                 <th class="d-none d-md-table-cell">Análisis</th>
+                                                <th class="d-none d-md-table-cell">Análisis</th>
+                                                <th class="d-none d-md-table-cell">Eliminar</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -129,6 +130,27 @@
                                                             Análisis
                                                         </button>
                                                      </form>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a href="{{ route('creditos.edit', $credito)}}" class="btn btn-primary">
+                                                            <span data-feather="edit"></span>
+                                                            Editar
+                                                        </a>
+                                                        <form method="POST" action="{{ route('creditos.destroy', $credito)}}">
+                                                            @method('delete')
+                                                            @csrf
+
+                                                            <a class="btn btn-danger"
+                                                                    onclick="event.preventDefault();
+                                                                            if (window.confirm('Confirma eliminar registro?')) {
+                                                                                this.closest('form').submit();
+                                                                            }">
+                                                                    <span data-feather="trash"></span>
+                                                                    Eliminar
+                                                            </a>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -163,9 +185,6 @@
                                             <label for="cantidad" class="text-dark">Cantidad (Valor del Crédito)</label>
                                             <input type="hidden" v-model="nuevo_credito.capital" name="cantidad" class="form-control" id="cantidad" min="1" step="0.01" required>
                                         </div>
-
-
-
 
                                         <div class="form-floating mb-3">
                                             <input type="number" v-model.number="nuevo_credito.cuotas" name="cuotas" class="form-control" id="cuotas" min="1" step="1" required>

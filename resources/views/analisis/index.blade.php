@@ -81,7 +81,7 @@
                             <h1 class="h3 mb-3"><strong>Analisis de Crédito</strong> {{ $credito->id}}</h1>
                             <div class="btn-toolbar mb-2 mb-md-0">
                                 <div class="btn-group">
-                                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#abonoExtraModal">Agregar abono capital a todas las cuotas</a>
+                                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#abonoExtraModal">Agregar abono a capital</a>
                                     <a href="{{route('dashboard')}}" class="btn btn-primary">
                                         Regresar
                                     </a>
