@@ -109,7 +109,7 @@
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="text" value="{{ number_format($credito->cantidad) }}" :value="credito_edit.getterCapital()" v-on:keyup="credito.setCapital($event)" class="form-control">
+                                        <input type="text" value="{{ number_format($credito->cantidad) }}" :value="credito_edit.getterCapital()" v-on:keyup="credito_edit.setCapital($event)" class="form-control">
                                         <label for="cantidad" class="text-dark">Cantidad (Valor del Crédito)</label>
                                         <input type="hidden" v-model="credito_edit.capital" name="cantidad" class="form-control" id="cantidad" min="1" step="0.01" required>
                                     </div>
