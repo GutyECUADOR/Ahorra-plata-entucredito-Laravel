@@ -32,24 +32,9 @@ class AnalisisController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'nombre' => 'required|max:190|unique:tipo_inversions',
-            'tasa' => 'required',
-            'nivel_ranking' => 'required|int',
-        ]);
-
-        if ($validator->fails()) {
-            return response([
-                'errors' => $validator->errors(),
-                'message' => 'Uno o más campos requeridos no pasaron la validación'
-            ], 400);
-        }
-
-        $tipoInversion = TipoInversion::create($data);
         return response([
-            'inversion' => new InversionResource($tipoInversion),
-            'message' => 'Tipo de inversion registrada con éxito'
+            'request' => $request->all(),
+            'message' => 'Analisis Guardado'
         ], 200);
     }
 
@@ -62,24 +47,6 @@ class AnalisisController extends Controller
     public function show($id)
     {
         $credito = Credito::findOrFail($id);
-        /* $tablaAnalisis = [];
-
-
-        $contador = 0;
-        while ($credito->cuotas >= $contador) {
-            $cuota = ($credito->interes * $credito->cantidad) ;
-
-
-            $fila = new \stdClass();
-            $fila->mes = $contador;
-            $fila->cuota = $cuota;
-            $fila->interes = $contador;
-            $fila->acapital = $contador;
-            $fila->capital = $contador;
-
-            array_push($tablaAnalisis, $fila);
-            $contador++;
-        } */
 
         return response([
             'credito'=>$credito,

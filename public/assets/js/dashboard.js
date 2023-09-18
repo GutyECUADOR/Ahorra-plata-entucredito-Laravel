@@ -219,6 +219,41 @@ const app = new Vue({
             this.tablaAmortizacion.forEach(filaPrestamo => {
                 filaPrestamo.aextracapital = 0;
             });
+            this.reGenerateTable();
+            this.ahorroEstimado = 0;
+            this.ahorroEstimadoPorcent = 0;
+        },
+        async guardarAnalisis(){
+            if (!confirm("Guardar cambios en el analisis?")) {
+                return;
+            }
+
+            let dataBody = this.tablaAmortizacion.filter( filaPrestamo => {
+                return filaPrestamo.aextracapital > 0;
+            });
+
+            if (dataBody.length < 1) {
+                alert('No existen cuotas con abono de capital que registrar.');
+                return;
+            }
+
+            console.log(JSON.stringify(dataBody));
+
+            const response = await fetch(`http://ahorraplataentucredito.test/api/analisis`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(dataBody)
+            })
+            .then(response => {
+                console.log(response);
+                return response.json();
+            }).catch( error => {
+                console.error(error);
+            });
+            console.log(response)
+
         }
 
     },

@@ -82,6 +82,7 @@
                             <div class="btn-toolbar mb-2 mb-md-0">
                                 <div class="btn-group">
                                     <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#abonoExtraModal">Agregar abono a capital</a>
+                                    <a href="#" class="btn btn-info" v-on:click="guardarAnalisis">Guardar analisis</a>
                                     <a href="{{route('dashboard')}}" class="btn btn-primary">
                                         Regresar
                                     </a>
@@ -89,7 +90,7 @@
                             </div>
                         </div>
 
-                         @if (session('status'))
+                        @if (session('status'))
                             <div class="alert alert-success">
                                 {{ session('status') }}
                             </div>
@@ -234,25 +235,6 @@
                                     </div>
                                 </div>
 
-                               {{--  <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Con este ahorro podrias adquirir</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="align-middle" data-feather="shopping-cart"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-0">
-                                            <img class="img-fluid" :src="'/assets/img/premios/' + imagenPremio" alt="Premio">
-                                        </div>
-                                    </div>
-                                </div> --}}
 
                             </div>
                         </div>
