@@ -1,13 +1,14 @@
 
 
 class FilaPrestamo {
-constructor({mes=0, cuota=0, cuotas=0, ainteres=0, acapital=0, capital=0, aextracapital=0, interes=0, capital_residual=0}) {
+constructor({mes=0, cuota=0, cuotas=0, ainteres=0, acapital=0, capital=0, cantidad=0, aextracapital=0, interes=0, capital_residual=0}) {
     this.mes = mes;
     this.cuota = cuota;
     this.cuotas = cuotas;
     this.ainteres = ainteres;
     this.acapital = acapital;
     this.capital = capital;
+    this.cantidad = cantidad;
     this.aextracapital = aextracapital;
     this.interes = interes;
     this.capital_residual = capital_residual;
@@ -93,6 +94,7 @@ const app = new Vue({
     cuotaFin: 1,
     cod_credito: null,
     credito: null,
+    credito_edit: new FilaPrestamo({}),
     totalCreditoInicial: 0,
     cuotaPrestamo: 0,
     pagoTotalCredito: 0,
@@ -118,6 +120,13 @@ const app = new Vue({
             });
             console.log(response)
             this.credito = response.credito;
+
+            this.credito_edit = new FilaPrestamo({
+                capital: response.credito.cantidad,
+                interes: response.credito.interes,
+                cuotas: response.credito.cuotas
+            });
+
             this.totalCreditoInicial = this.credito.cantidad;
             this.generarTabla();
 

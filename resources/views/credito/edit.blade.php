@@ -25,6 +25,8 @@
             </nav>
 
             <div class="main" id="app">
+                <input class="form-control" type="hidden" name="hiddenCreditoID" id="hiddenCreditoID" value="{{$credito->id}}">
+
                 <nav class="navbar navbar-expand navbar-light navbar-bg">
                     <a class="sidebar-toggle js-sidebar-toggle">
                         <i class="hamburger align-self-center"></i>
@@ -107,18 +109,18 @@
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="text" value="{{ number_format($credito->cantidad) }}" :value="credito.getterCapital()" v-on:keyup="credito.setCapital($event)" class="form-control">
+                                        <input type="text" value="{{ number_format($credito->cantidad) }}" :value="credito_edit.getterCapital()" v-on:keyup="credito.setCapital($event)" class="form-control">
                                         <label for="cantidad" class="text-dark">Cantidad (Valor del Crédito)</label>
-                                        <input type="hidden" v-model="credito.capital" name="cantidad" class="form-control" id="cantidad" min="1" step="0.01" required>
+                                        <input type="hidden" v-model="credito_edit.capital" name="cantidad" class="form-control" id="cantidad" min="1" step="0.01" required>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="number" value="{{ $credito->cuotas }}" v-model.number="credito.cuotas" name="cuotas" class="form-control" id="cuotas" min="1" step="1" required>
+                                        <input type="number" v-model.number="credito_edit.cuotas" name="cuotas" class="form-control" id="cuotas" min="1" step="1" required>
                                         <label for="cuotas" class="text-dark">Cantidad de Cuotas</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="number" value="{{ $credito->interes }}" v-model.number="credito.interes"  name="interes" class="form-control" id="interes" min="1" step="0.01" required>
+                                        <input type="number" v-model.number="credito_edit.interes"  name="interes" class="form-control" id="interes" min="1" step="0.01" required>
                                         <label for="interes" class="text-dark">Interes</label>
                                     </div>
 
@@ -166,7 +168,6 @@
                 </footer>
             </div>
 
-            <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 
     </body>
 </x-app-layout>
