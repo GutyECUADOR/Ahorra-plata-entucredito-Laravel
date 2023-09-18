@@ -7,7 +7,7 @@ use App\Http\Resources\InversionResource;
 use App\Http\Resources\TipoInversionResource;
 use App\Models\Analisis;
 use App\Models\Credito;
-
+use App\Models\FilaPrestamo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -32,9 +32,33 @@ class AnalisisController extends Controller
      */
     public function store(Request $request)
     {
+        $abonos = $request->get('abonos');
+        $credito = $request->get('credito');
+
+
+        foreach ($abonos as $abono) {
+            $validator = Validator::make($abono, [
+                'mes' => 'required',
+                'aextracapital' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return response([
+                    'errors' => $validator->errors(),
+                    'message' => 'Uno o más campos requeridos no pasaron la validación'
+                ], 400);
+            }
+
+            $filaPrestamo = new FilaPrestamo();
+            $filaPrestamo->mes = $abono["mes"];
+            $filaPrestamo->aextracapital = $abono["aextracapital"];
+            $filaPrestamo->credito_id = $credito["id"];
+            $filaPrestamo->save();
+        }
+
         return response([
-            'request' => $request->all(),
-            'message' => 'Analisis Guardado'
+            'abonos' => $abonos,
+            'message' => 'Analisis Guardado!'
         ], 200);
     }
 
@@ -47,9 +71,10 @@ class AnalisisController extends Controller
     public function show($id)
     {
         $credito = Credito::findOrFail($id);
-
+        $abonos = FilaPrestamo::where('credito_id', $id)->orderBy('id', 'desc')->get();
         return response([
             'credito'=>$credito,
+            'abonos'=>$abonos,
             'message' => 'Tabla Obtenida'
         ], 200);
     }

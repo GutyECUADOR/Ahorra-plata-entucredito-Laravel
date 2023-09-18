@@ -228,14 +228,18 @@ const app = new Vue({
                 return;
             }
 
-            let dataBody = this.tablaAmortizacion.filter( filaPrestamo => {
+            let abonos = this.tablaAmortizacion.filter( filaPrestamo => {
                 return filaPrestamo.aextracapital > 0;
             });
 
-            if (dataBody.length < 1) {
+            if (abonos.length < 1) {
                 alert('No existen cuotas con abono de capital que registrar.');
                 return;
             }
+
+            let dataBody = {};
+            dataBody.abonos = abonos;
+            dataBody.credito = this.credito;
 
             console.log(JSON.stringify(dataBody));
 
