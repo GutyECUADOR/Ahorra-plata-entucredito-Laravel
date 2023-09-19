@@ -225,8 +225,8 @@
                                             <h1 class="mt-1 mb-3">$ @{{ahorroEstimado.toFixed(0) | numberWithCommas}}</h1>
                                         </div>
                                         <div class="mb-0">
-                                            <span class="text-primary"> <i class="mdi mdi-arrow-bottom-right"></i> @{{ cuotas_ahorradas.toFixed(0) }} </span>
-                                            <span class="text-muted">cuotas ahorradas</span>
+                                            <span class="text-primary h3"> <i class="mdi mdi-arrow-bottom-right"></i> @{{ cuotas_ahorradas.toFixed(2) }} </span>
+                                            <span class="text-muted h3">años ahorrados</span>
                                         </div>
                                         <div class="mb-0">
                                             <span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> @{{ ahorroEstimadoPorcent.toFixed(2) | numberWithCommas }}% </span>

@@ -204,7 +204,7 @@ const app = new Vue({
 
             this.pagoTotalCredito = this.credito?.cuotas * this.cuotaPrestamo
             this.ahorroEstimado = ahorroEstimado;
-            this.cuotas_ahorradas = cuotas_ahorradas;
+            this.cuotas_ahorradas = cuotas_ahorradas / 12;
             this.ahorroEstimadoPorcent = cuotas_ahorradas * 100 / this.credito.cuotas;
             this.pagoTotalCreditoMenosAbonos = this.pagoTotalCredito - this.ahorroEstimado;
         },
