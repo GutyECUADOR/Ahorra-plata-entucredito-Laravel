@@ -47,7 +47,7 @@
                                         class="text-dark">{{ Str::title(Auth::user()->name) }}</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
+                                   {{--  <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
                                             data-feather="user"></i> Profile</a>
                                     <a class="dropdown-item" href="#"><i class="align-middle me-1"
                                             data-feather="pie-chart"></i> Analytics</a>
@@ -56,7 +56,7 @@
                                             data-feather="settings"></i> Settings & Privacy</a>
                                     <a class="dropdown-item" href="#"><i class="align-middle me-1"
                                             data-feather="help-circle"></i> Help Center</a>
-                                    <div class="dropdown-divider"></div>
+                                    <div class="dropdown-divider"></div> --}}
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <a class="dropdown-item" href="#"
@@ -192,7 +192,7 @@
                                         </div>
 
                                         <div class="form-floating mb-3">
-                                            <input type="number" v-model.number="nuevo_credito.interes"  name="interes" class="form-control" id="interes" min="1" step="0.01" required>
+                                            <input type="number" v-model.number="nuevo_credito.interes"  name="interes" class="form-control" id="interes" min="0.01" step="0.01" required>
                                             <label for="interes" class="text-dark">Interes</label>
                                         </div>
 
@@ -213,7 +213,7 @@
                     </div>
                 </main>
 
-                <footer class="footer">
+                {{-- <footer class="footer">
                     <div class="container-fluid">
                         <div class="row text-muted">
                             <div class="col-6 text-start">
@@ -242,11 +242,11 @@
                             </div>
                         </div>
                     </div>
-                </footer>
+                </footer> --}}
             </div>
         </div>
 
-        <script src="{{ asset('assets_admin/js/app.js') }}"></script>
+
 
     </body>
 </x-app-layout>
