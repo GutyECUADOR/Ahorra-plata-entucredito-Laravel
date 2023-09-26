@@ -26,16 +26,13 @@
   <!-- Libraries Stylesheet -->
   <link href="assets/lib/animate/animate.min.css" rel="stylesheet">
   <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Customized Bootstrap Stylesheet -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Template Stylesheet -->
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -204,9 +201,29 @@
   <!-- Footer End -->
 
 
+    <div id="whatspopover" style="
+        position: fixed;
+        width: 60px;
+        {{-- height: 60px; --}}
+        bottom: 2%;
+        right: 10px;
+        background-color: #25d366;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        z-index: 100;
+
+
+        "
+    data-container="body" data-toggle="popover" data-placement="left" data-content="CENTRO DE CONTACTO.">
+        <a style="color: white;" href="https://api.whatsapp.com/send?phone=+573203192388&amp;text=Hola! Quisiera más información."  target="_blank">
+        <i class="fa fa-whatsapp my-float"></i>
+    </div>
+
   <!-- Back to Top -->
-  <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
-          class="bi bi-arrow-up"></i></a>
+  {{-- <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top">
+  <i class="bi bi-arrow-up"></i></a> --}}
 
 
   <!-- JavaScript Libraries -->

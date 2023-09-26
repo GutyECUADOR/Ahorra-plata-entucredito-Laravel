@@ -26,4 +26,6 @@
     <body class="text-center">
         {{ $slot }}
     </body>
+
+
 </html>
