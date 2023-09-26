@@ -187,13 +187,13 @@
                                                     <i class="align-middle" data-feather="dollar-sign"></i>
                                                 </div>
                                             </div>
-                                            <h1 class="mt-1 mb-3">$ @{{ totalCreditoInicial.toFixed(0) | numberWithCommas}}</h1>
+                                            <h1 class="mt-1 mb-3">$ @{{ totalCapitalCreditoMenosAbonos.toFixed(0) | numberWithCommas}}</h1>
                                         </div>
                                         <div class="row">
                                             <div class="col mt-0">
                                                 <h5 class="card-title">Saldo a Intereses</h5>
                                             </div>
-                                            <h1 class="mt-1 mb-3">$ @{{ (Math.abs(totalCreditoInicial - pagoTotalCreditoMenosAbonos) ).toFixed(0) | numberWithCommas}}</h1>
+                                            <h1 class="mt-1 mb-3">$ @{{ totalInteresCreditoMenosAbonos.toFixed(0) | numberWithCommas}}</h1>
                                         </div>
                                         <div class="row">
                                             <div class="col mt-0">

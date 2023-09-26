@@ -99,6 +99,8 @@ const app = new Vue({
     totalCreditoInicial: 0,
     cuotaPrestamo: 0,
     pagoTotalCredito: 0,
+    totalInteresCreditoMenosAbonos: 0,
+    totalCapitalCreditoMenosAbonos: 0,
     pagoTotalCreditoMenosAbonos: 0,
     ahorroEstimado: 0,
     cuotas_ahorradas: 0,
@@ -202,11 +204,33 @@ const app = new Vue({
                 }
             });
 
-            this.pagoTotalCredito = this.credito?.cuotas * this.cuotaPrestamo
-            this.ahorroEstimado = ahorroEstimado;
+            //Ontenemos solo las que tengan abonos
+            let array_abonos = this.tablaAmortizacion.filter(( filaPrestamo) => filaPrestamo.capital_residual > 0 && filaPrestamo.capital >0);
+            console.log("Con abonos", array_abonos);
+
+            // Obtener total de abonos a intereses
+            let abono_a_intereses = array_abonos.reduce( (total, filaPrestamo) => {
+                return total + filaPrestamo.ainteres;
+            }, 0);
+
+            // Obtener total de abonos a capital
+            let abono_a_capital = array_abonos.reduce( (total, filaPrestamo) => {
+                return total + filaPrestamo.acapital;
+            }, 0);
+
+            console.log('Total abono a interes:', abono_a_intereses);
+            console.log('Total abono a capital:', abono_a_capital);
+
+
+
+
+            //this.pagoTotalCredito = this.credito?.cuotas * this.cuotaPrestamo
             this.cuotas_ahorradas = cuotas_ahorradas / 12;
             this.ahorroEstimadoPorcent = cuotas_ahorradas * 100 / this.credito.cuotas;
-            this.pagoTotalCreditoMenosAbonos = this.pagoTotalCredito - this.ahorroEstimado;
+            this.totalInteresCreditoMenosAbonos = abono_a_intereses;
+            this.totalCapitalCreditoMenosAbonos = abono_a_capital;
+            this.pagoTotalCreditoMenosAbonos = abono_a_intereses + abono_a_capital;
+            this.ahorroEstimado =  this.pagoTotalCredito - this.pagoTotalCreditoMenosAbonos;
         },
         aplicarAbonoAll(){
             if ((this.cuotaFin < 0 || this.cuotaInicio < 1) || this.cuotaFin > this.credito.cuotas || this.cuotaInicio > this.cuotaFin) {
